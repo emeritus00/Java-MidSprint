@@ -1,3 +1,8 @@
+package Library;
+
+/**
+ * The LibraryItem class represents an item in the library, such as a book or periodical.
+ */
 public class LibraryItem {
     private String id;
     private String title;
@@ -8,6 +13,16 @@ public class LibraryItem {
     private int availableCopies;
     private String itemType;
 
+    /**
+     * Creates a new LibraryItem.
+     * @param id The ID of the item.
+     * @param title The title of the item.
+     * @param author The author of the item.
+     * @param ISBN The ISBN of the item.
+     * @param publisher The publisher of the item.
+     * @param totalCopies The total number of copies of the item.
+     * @param itemType The type of the item (e.g., book, periodical).
+     */
     public LibraryItem(String id, String title, Author author, String ISBN, String publisher,int totalCopies, String itemType){
         this.id = id;
         this.title = title;
@@ -19,6 +34,7 @@ public class LibraryItem {
         this.itemType = itemType;
     }
 
+    // Getter methods with Javadoc comments can be added here...
     public String getId(){
         return this.id;
     }
@@ -51,6 +67,9 @@ public class LibraryItem {
         return this.itemType;
     }
 
+    /**
+     * Attempts to borrow the item, decreasing the available copies by one if available.
+     */
     public void borrowItem(){
         if (availableCopies > 0) {
             availableCopies--;
@@ -60,6 +79,9 @@ public class LibraryItem {
         
     }
 
+    /**
+     * Returns the item, increasing the available copies by one if applicable.
+     */
     public void returnItem(){
         if(availableCopies < totalCopies){
             availableCopies++;
@@ -70,6 +92,6 @@ public class LibraryItem {
 
     
     public void printDetails() {
-        System.out.println("Title: " + title + "\nAuthor: " + author + "\nISBN: " + ISBN + "\nPublisher: " + publisher + "\nAvailable Copies: " + availableCopies);
+        System.out.println("\nTitle: " + title + "\nAuthor: " + author + "\nISBN: " + ISBN + "\nPublisher: " + publisher + "\nAvailable Copies: " + availableCopies);
     }
 }
