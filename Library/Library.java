@@ -137,10 +137,4 @@ public class Library {
         }
     }
 
-
-    public Author searchAuthorByName(String authorName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchAuthorByName'");
-    }
-
 }

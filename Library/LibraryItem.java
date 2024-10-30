@@ -30,8 +30,6 @@ public class LibraryItem {
         this.availableCopies = totalCopies;
     }
 
-
-    // Getter methods with Javadoc comments can be added here...
     public int getId(){
         return this.id;
     }
