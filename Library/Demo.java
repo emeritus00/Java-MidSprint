@@ -1,4 +1,7 @@
 package Library;
+
+import java.util.List;
+
 public class Demo {
     public static void main(String[] args) {
         Library library = new Library();
@@ -7,7 +10,7 @@ public class Demo {
         System.out.println("\n--- Testing Library Management System ---");
 
         // Display all library items
-        System.out.println("\n****** Start of List Library Itmes *******");
+        System.out.println("\n****** Start of List Library Items *******");
         System.out.println("\nLibrary Items:");
         for (LibraryItem item : library.getLibraryItems()) {
             item.printDetails();
@@ -15,23 +18,38 @@ public class Demo {
         }
         System.out.println("********* End of Library Items ***********");
 
-        // Display all authors
-        System.out.println("\n******* Start of List of Authors *******");
-        System.out.println("\nAuthors:");
+        // Display all authors and their books
+        System.out.println("\n******* Start of List of Authors and Their Books *******");
         for (Author author : library.getAuthors()) {
             author.printDetails();
-            System.out.println();
+            System.out.println("\nBooks written by " + author.getName() + ":\n");
+            for (LibraryItem item : library.getLibraryItems()) {
+                if (item instanceof Book && ((Book) item).getAuthor().equals(author)) {
+                    item.printDetails();
+                    System.out.println();
+                }
+            }
+            System.out.println("----\n");
         }
-        System.out.println("****** End of List of Authors ************");
+        System.out.println("****** End of List of Authors and Their Books ************");
 
-        // Display all patrons
-        System.out.println("\n***** Start of List of Patrons *********");
-        System.out.println("\nPatrons:");
+         // Display all patrons and their borrowed items
+        System.out.println("\n***** Start of List of Patrons and Their Borrowed Items *********\n");
         for (Patron patron : library.getPatrons()) {
             patron.printDetails();
-            System.out.println();
+            System.out.println("\nItems borrowed by " + patron.getName() + ":\n");
+            List<LibraryItem> borrowedItems = patron.getBorrowedItems(); 
+            if (borrowedItems.isEmpty()) {
+                System.out.println("No borrowed items.");
+            } else {
+                for (LibraryItem item : borrowedItems) {
+                    item.printDetails();
+                    System.out.println();
+                }
+            }
+            System.out.println("----\n");
         }
-        System.out.println("******** End of List of Patrons **********");
+        System.out.println("******** End of List of Patrons and Their Borrowed Items **********");
 
         // Test borrowing an item
         System.out.println("\n**** Showing Borrowing from Library ****");
@@ -41,8 +59,7 @@ public class Demo {
             library.borrowLibraryItem(patron, "The Philosopher's Stone");
             patron.printDetails();
         }
-        System.out.println("************ End of Borrowing ************");
-
+        System.out.println("\n************ End of Borrowing ************");
 
         // Test returning an item
         System.out.println("\n**** Showing Returning to Library ******");
@@ -57,11 +74,13 @@ public class Demo {
         System.out.println("\n******* Searching in Library ***********");
         LibraryItem searchedItem = library.searchByTitle("Motherbird");
         if (searchedItem != null) {
-            System.out.println("\nSearched for 'Motherbird':");
+            System.out.println("\nSearched for 'Motherbird':\n");
+            System.out.println("Searched result...\n");
             searchedItem.printDetails();
         } else {
             System.out.println("\n'Motherbird' not found in library.");
         }
+        System.out.println("----\n");
         System.out.println("***** End of Searching in Library ********");
     }
 
@@ -85,23 +104,41 @@ public class Demo {
         // Deleting an author
         library.deleteAuthor("Muhammad Hilda");
 
-        // Display all authors
-        library.printAllAuthors();
+        // Adding Books
+        Book book1 = new Book(1, "The Philosopher's Stone", "9780747532743", "Exim", 5, author1, false, false);
+        Book book2 = new Book(2, "The Chamber of Hallow Secrets", "9780747538486", "Exim", 5, author1, true, false);
+        Book book3 = new Book(3, "The Wedding Day", "9780451524935", "Secker & Warburg", 4, author2, false, false);
+        Book book4 = new Book(4, "Animal Farm", "9780451526342", "Secker & Warburg", 6, author2, false, true);
+        Book book5 = new Book(5, "Motherbird", "9780061120084", "Scribner", 7, author3, true, false);
+        Book book6 = new Book(6, "The Great Isle", "9780743273565", "Scribner", 3, author4, false, false);
 
-        // Adding Library Items
-        library.addLibraryItem(new LibraryItem("001", "The Philosopher's Stone", author1, "9780747532743", "Exim", 5, "Book"));
-        library.addLibraryItem(new LibraryItem("002", "The Chamber of Hallow Secrets", author1, "9780747538486", "Exim", 5, "Book"));
-        library.addLibraryItem(new LibraryItem("003", "The Wedding Day", author2, "9780451524935", "Secker & Warburg", 4, "Book"));
-        library.addLibraryItem(new LibraryItem("004", "Animal Farm", author2, "9780451526342", "Secker & Warburg", 6, "Book"));
-        library.addLibraryItem(new LibraryItem("005", "Motherbird", author3, "9780061120084", "Scribner", 7, "Book"));
-        library.addLibraryItem(new LibraryItem("006", "The Great Isle", author4, "9780743273565", "Scribner", 3, "Book"));
-        library.addLibraryItem(new LibraryItem("001", "Time Magazine - March 2023", null, "000123456", "Time Inc.", 10, "Periodical"));
-        library.addLibraryItem(new LibraryItem("002", "National Geographic - April 2023", null, "000234567", "Nat Geo Society", 8, "Periodical"));
+        library.addLibraryItem(book1);
+        library.addLibraryItem(book2);
+        library.addLibraryItem(book3);
+        library.addLibraryItem(book4);
+        library.addLibraryItem(book5);
+        library.addLibraryItem(book6);
+
+        // Adding Periodicals
+        Periodical periodical1 = new Periodical(7, "Time Magazine - March 2023", "000123456", "Time Inc.", 10, "March 2023", true);
+        Periodical periodical2 = new Periodical(8, "National Geographic - April 2023", "000234567", "Nat Geo Society", 8, "April 2023", false);
+
+        library.addLibraryItem(periodical1);
+        library.addLibraryItem(periodical2);
 
         // Adding Patrons
-        library.addPatron(new Patron("Alice Johnson", "123 Elm Street", "555-1234"));
-        library.addPatron(new Patron("Bob Smith", "456 Oak Avenue", "555-5678"));
-        library.addPatron(new Patron("Cathy Brown", "789 Pine Road", "555-9101"));
+        Patron patron1 = new Patron("Alice Johnson", "123 Elm Street", "555-1234");
+        Patron patron2 = new Patron("Bob Smith", "456 Oak Avenue", "555-5678");
+        Patron patron3 = new Patron("Cathy Brown", "789 Pine Road", "555-9101");
+
+        library.addPatron(patron1);
+        library.addPatron(patron2);
+        library.addPatron(patron3);
+
+        // Sample borrowing actions
+        library.borrowLibraryItem(patron1, "The Philosopher's Stone");
+        library.borrowLibraryItem(patron3, "The Wedding Day");
+
 
         System.out.println("Sample data loaded successfully.");
     }

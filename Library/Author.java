@@ -1,6 +1,5 @@
 package Library;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +53,13 @@ public class Author {
     /**
      * Prints details of the author and the items they have written.
      */
-    public void printDetails(){
-        System.out.println("Author: " + name + "\nDate of Birth: " + dateOfBirth);
-        System.out.println("Items Written:");
-        for (LibraryItem item : itemsWritten) {
-            item.printDetails();
-        }
+    @Override
+    public String toString() {
+        return "Author: " + name + ", Date of Birth: " + dateOfBirth;
+    }
+    
+    public void printDetails() {
+        System.out.println(this.toString());
     }
 
 }

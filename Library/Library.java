@@ -47,8 +47,8 @@ public class Library {
      * Removes an item from the library by its ID.
      * @param id The ID of the LibraryItem to remove.
      */
-    public void removeLibraryItem(String id){
-        libraryItems.removeIf(item -> item.getId().equals(id));
+    public void removeLibraryItem(int id){
+        libraryItems.removeIf(item -> item.getId() == id);
     }
 
     /**
@@ -135,6 +135,12 @@ public class Library {
         } else {
             System.out.println("Item or patron not found.");
         }
+    }
+
+
+    public Author searchAuthorByName(String authorName) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'searchAuthorByName'");
     }
 
 }

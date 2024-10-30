@@ -1,17 +1,15 @@
 package Library;
 
 /**
- * The LibraryItem class represents an item in the library, such as a book or periodical.
+ * Represents a general item in the library with common attributes.
  */
 public class LibraryItem {
-    private String id;
+    private int id;
     private String title;
-    private Author author;
     private String ISBN;
     private String publisher;
     private int totalCopies;
     private int availableCopies;
-    private String itemType;
 
     /**
      * Creates a new LibraryItem.
@@ -23,28 +21,23 @@ public class LibraryItem {
      * @param totalCopies The total number of copies of the item.
      * @param itemType The type of the item (e.g., book, periodical).
      */
-    public LibraryItem(String id, String title, Author author, String ISBN, String publisher,int totalCopies, String itemType){
+    public LibraryItem(int id, String title, String ISBN, String publisher,int totalCopies){
         this.id = id;
         this.title = title;
-        this.author = author;
         this.ISBN = ISBN;
         this.publisher = publisher;
         this.totalCopies = totalCopies;
         this.availableCopies = totalCopies;
-        this.itemType = itemType;
     }
 
+
     // Getter methods with Javadoc comments can be added here...
-    public String getId(){
+    public int getId(){
         return this.id;
     }
 
     public String getTitle(){
         return this.title;
-    }
-
-    public Author getAuthor(){
-        return this.author;
     }
 
     public String getISBN(){
@@ -63,10 +56,6 @@ public class LibraryItem {
         return this.availableCopies;
     }
 
-    public String getItemType(){
-        return this.itemType;
-    }
-
     /**
      * Attempts to borrow the item, decreasing the available copies by one if available.
      */
@@ -74,7 +63,7 @@ public class LibraryItem {
         if (availableCopies > 0) {
             availableCopies--;
         } else {
-            System.out.println("Item is currently check out");
+            System.out.println("Item is currently checked out");
         }
         
     }
@@ -92,6 +81,6 @@ public class LibraryItem {
 
     
     public void printDetails() {
-        System.out.println("\nTitle: " + title + "\nAuthor: " + author + "\nISBN: " + ISBN + "\nPublisher: " + publisher + "\nAvailable Copies: " + availableCopies);
+        System.out.println("ID: " + id + "\nTitle: " + title + "\nISBN: " + ISBN + "\nPublisher: " + publisher + "\nAvailable Copies: " + availableCopies);
     }
 }

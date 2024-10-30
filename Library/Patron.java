@@ -29,6 +29,11 @@ public class Patron {
         return this.name;
      }
 
+     // Method to get the list of borrowed items
+     public List<LibraryItem> getBorrowedItems() {
+        return borrowedItems;
+    }
+
     /**
      * Attempts to borrow an item for the patron.
      * @param item The LibraryItem to borrow.
@@ -60,10 +65,6 @@ public class Patron {
      */
     public void printDetails() {
         System.out.println("Patron: " + name + "\nAddress: " + address + "\nPhone Number: " + phoneNumber);
-        System.out.println("Borrowed Items:");
-        for (LibraryItem item : borrowedItems) {
-            item.printDetails();
-        }
     }
 
 }
